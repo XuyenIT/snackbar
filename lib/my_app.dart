@@ -13,34 +13,38 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> with WidgetsBindingObserver {
+  final mainScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
         title: 'This is a StatefullWiget',
         home: Scaffold(
-          body: SafeArea(
-              minimum: const EdgeInsets.only(left: 20, right: 20),
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      content: const Text('Yay! A SnackBar!'),
-                      action: SnackBarAction(
-                        label: 'Undo',
-                        onPressed: () {
-                          // Some code to undo the change.
-                        },
-                      ),
-                    );
+          key: mainScaffoldMessengerKey,
+          body: Builder(builder: (context) {
+            return SafeArea(
+                minimum: const EdgeInsets.only(left: 20, right: 20),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final snackBar = SnackBar(
+                        content: const Text('Yay! A SnackBar!'),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
 
-                    // Find the ScaffoldMessenger in the widget tree
-                    // and use it to show a SnackBar.
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                  child: const Text('Show SnackBar'),
-                ),
-              )),
+                      // Find the ScaffoldMessenger in the widget tree
+                      // and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: const Text('Show SnackBar'),
+                  ),
+                ));
+          }),
         ));
   }
 }
